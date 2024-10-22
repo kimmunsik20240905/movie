@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search</title>
+    <link href="../css/style.css" rel="stylesheet">
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+</head>
+
+<body>
+    <header>
+        <h1 class="home">
+            <img src="../images/logo.png" alt="무비서치 로고">
+            Movie Search
+        </h1>
+        <input type="text" id="searchMoive" placeholder="검색하실 영화제목을 입력하세요">
+        <i class="fa-solid fa-bookmark bookmark" alt="북마크 보기"></i>
+    </header>
+    <main>
+        <div id="movieContainer"></div>
+    </main>
+    <script src="../js/api.js"></script>
+    <script src="../js/ui.js"></script>
+</body>
+
+</html>
