@@ -44,98 +44,100 @@ const displayMovies = (movies) => {
 };
 
 //영화 상세정보 모달 띄우기
-moviesContainer.addEventListener('click', async (event) => {
-    const movieElement = event.target.closest('.movie'); 
-    const movieTitleElement = movieElement.querySelector('.movieTitle');
-    
-    if (movieTitleElement) {
-        const movieId = movieTitleElement.getAttribute('data-id');
+document.addEventListener('DOMContentLoaded', () => {
+    moviesContainer.addEventListener('click', async (event) => {
+        const movieElement = event.target.closest('.movie'); 
+        const movieTitleElement = movieElement.querySelector('.movieTitle');
         
-        const movieDetails = await fetchMovieDetails(movieId);
-        
-        const movieCredits = await fetchMovieCredits(movieId);
-        const director = movieCredits.crew.find(person => person.job === 'Director');
-        
-        const popElement = document.createElement('div');
-        popElement.classList.add('popup');
-        popElement.style.display = 'block';
+        if (movieTitleElement) {
+            const movieId = movieTitleElement.getAttribute('data-id');
+            
+            const movieDetails = await fetchMovieDetails(movieId);
+            
+            const movieCredits = await fetchMovieCredits(movieId);
+            const director = movieCredits.crew.find(person => person.job === 'Director');
+            
+            const popElement = document.createElement('div');
+            popElement.classList.add('popup');
+            popElement.style.display = 'block';
 
-        const popWindowElment = document.createElement('div');
-        popWindowElment.classList.add('popup_window');
-        popWindowElment.innerHTML = `
-            <p class="closeBtn">X</p>
-            <div class="popDetailWrap" data-id="${movieId}">
-                <img src="${!movieDetails.poster_path ? '../images/image_sample.png': 'https://image.tmdb.org/t/p/w500'+movieDetails.poster_path}" alt="${movieDetails.title}">
-                <div class="detailTxtWrap">
-                    <h1>
-                        ${movieDetails.title}
-                        <i class="fa-regular fa-bookmark bookmarkOff" alt="북마크 전"></i>
-                        <i class="fa-solid fa-bookmark bookmarkOn" alt="북마크 후"></i>
-                    </h1>
-                    <p><b>감독</b> : ${director ? director.name : 'No Information'}</p>
-                    <p><b>개봉일</b> : ${movieDetails.release_date ? movieDetails.release_date : 'No Information'}</p>
-                    <p><b>줄거리</b> : ${movieDetails.overview ? movieDetails.overview : 'No Information'}</p>
+            const popWindowElment = document.createElement('div');
+            popWindowElment.classList.add('popup_window');
+            popWindowElment.innerHTML = `
+                <p class="closeBtn">X</p>
+                <div class="popDetailWrap" data-id="${movieId}">
+                    <img src="${!movieDetails.poster_path ? '../images/image_sample.png': 'https://image.tmdb.org/t/p/w500'+movieDetails.poster_path}" alt="${movieDetails.title}">
+                    <div class="detailTxtWrap">
+                        <h1>
+                            ${movieDetails.title}
+                            <i class="fa-regular fa-bookmark bookmarkOff" alt="북마크 전"></i>
+                            <i class="fa-solid fa-bookmark bookmarkOn" alt="북마크 후"></i>
+                        </h1>
+                        <p><b>감독</b> : ${director ? director.name : 'No Information'}</p>
+                        <p><b>개봉일</b> : ${movieDetails.release_date ? movieDetails.release_date : 'No Information'}</p>
+                        <p><b>줄거리</b> : ${movieDetails.overview ? movieDetails.overview : 'No Information'}</p>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
 
-        popElement.appendChild(popWindowElment);
-        document.body.appendChild(popElement);
-        document.body.style.overflow = 'hidden';
+            popElement.appendChild(popWindowElment);
+            document.body.appendChild(popElement);
+            document.body.style.overflow = 'hidden';
 
-        const closeBtn = popWindowElment.querySelector('.closeBtn');
-        closeBtn.addEventListener('click', ()=>{
-            popElement.style.display = 'none';
-            document.body.removeChild(popElement);
-            document.body.style.overflow = 'auto';
-        });
+            const closeBtn = popWindowElment.querySelector('.closeBtn');
+            closeBtn.addEventListener('click', ()=>{
+                popElement.style.display = 'none';
+                document.body.removeChild(popElement);
+                document.body.style.overflow = 'auto';
+            });
 
-        //영화 북마크 설정 온/오프하기 
-        const bookmarkOn = popWindowElment.querySelector('.bookmarkOn');
-        const bookmarkOff = popWindowElment.querySelector('.bookmarkOff');
-        
-        const storedMovies = localStorage.getItem('bookmarkMovies');
-        let bookmarkMovies
-            if(!storedMovies){
-                bookmarkMovies = [];
-            }else{
-                bookmarkMovies = JSON.parse(storedMovies);
-            }
+            //영화 북마크 설정 온/오프하기 
+            const bookmarkOn = popWindowElment.querySelector('.bookmarkOn');
+            const bookmarkOff = popWindowElment.querySelector('.bookmarkOff');
+            
+            const storedMovies = localStorage.getItem('bookmarkMovies');
+            let bookmarkMovies
+                if(!storedMovies){
+                    bookmarkMovies = [];
+                }else{
+                    bookmarkMovies = JSON.parse(storedMovies);
+                }
 
-            if(bookmarkMovies.includes(movieId)){
+                if(bookmarkMovies.includes(movieId)){
+                    bookmarkOn.style.display = 'inline';
+                    bookmarkOff.style.display = 'none';
+                }else{
+                    bookmarkOn.style.display = 'none';
+                    bookmarkOff.style.display = 'inline';
+                }
+
+            //영화 북마크 설정 온하기
+            bookmarkOff.addEventListener('click', () => {
+                function bookmarkOnMovie(movieId) {
+                    if (!bookmarkMovies.includes(movieId)) {
+                        bookmarkMovies.push(movieId);
+                        localStorage.setItem('bookmarkMovies', JSON.stringify(bookmarkMovies));
+                    }
+                }
+                bookmarkOnMovie(movieId);   
                 bookmarkOn.style.display = 'inline';
                 bookmarkOff.style.display = 'none';
-            }else{
+            });
+
+            //영화 북마크 설정 오프하기
+            bookmarkOn.addEventListener('click', () => {
+                function bookmarkOffMovie(movieId) {
+                    if (bookmarkMovies.includes(movieId)) {
+                        const updatedMovies = bookmarkMovies.filter(id => id !== movieId);
+                        localStorage.setItem('bookmarkMovies', JSON.stringify(updatedMovies));
+                    }
+                }
+                bookmarkOffMovie(movieId);   
                 bookmarkOn.style.display = 'none';
                 bookmarkOff.style.display = 'inline';
-            }
-
-        //영화 북마크 설정 온하기
-        bookmarkOff.addEventListener('click', () => {
-            function bookmarkOnMovie(movieId) {
-                if (!bookmarkMovies.includes(movieId)) {
-                    bookmarkMovies.push(movieId);
-                    localStorage.setItem('bookmarkMovies', JSON.stringify(bookmarkMovies));
-                }
-            }
-            bookmarkOnMovie(movieId);   
-            bookmarkOn.style.display = 'inline';
-            bookmarkOff.style.display = 'none';
-        });
-
-        //영화 북마크 설정 오프하기
-        bookmarkOn.addEventListener('click', () => {
-            function bookmarkOffMovie(movieId) {
-                if (bookmarkMovies.includes(movieId)) {
-                    const updatedMovies = bookmarkMovies.filter(id => id !== movieId);
-                    localStorage.setItem('bookmarkMovies', JSON.stringify(updatedMovies));
-                }
-            }
-            bookmarkOffMovie(movieId);   
-            bookmarkOn.style.display = 'none';
-            bookmarkOff.style.display = 'inline';
-        });
-    }
+            });
+        }
+    });
 });
 
 //영화 검색정보 입력하기 
