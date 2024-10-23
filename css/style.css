@@ -55,7 +55,7 @@ main{padding-top:80px;}
 .popup { position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, .5); z-index: 100; backdrop-filter: blur(2px); }
 .popup_window { color:#000; width: 800px; height: 70vh; padding: 30px; border-radius: 10px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: #e6e6e6; align-items: center; }
 .popup_window .popDetailWrap{overflow: auto; height: 100%; padding-right: 5px; display: flex;}
-.popup_window img{width: 250px; border-radius: 10px; border:2px solid #ebebeb;}
+.popup_window img{ border-radius: 10px; border:2px solid #ebebeb;}
 .popup_window .detailTxtWrap{flex:1; padding-left:20px;}
 .popup_window p{font-size: 18px; margin-top:5px;}
 .popup_window .closeBtn { position: absolute; right: 10px; top: 10px; font-size: 20px; line-height: 15px; cursor: pointer;}
