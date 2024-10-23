@@ -4,7 +4,7 @@
 
 /* 초기화코드 */
 html{ font-size: 16px; scroll-behavior: smooth;}
-html, body { width: 100%;}
+html, body {min-width: 850px; width: 100%;}
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; vertical-align: baseline; background: transparent; }
 html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; color: #fff; background-color: #121631; }
 
@@ -38,7 +38,7 @@ dfn { font-style:normal;}
 legend{ position:absolute; left:0; top:0; width:1px; height:1px; font-size:0; line-height:0; overflow:hidden; visibility:hidden;}
 
 /* 헤더 */
-header { position: fixed; z-index: 99; top: 0; left: 0; width: 100%; padding: 0 20px; height: 80px; align-items: center; background-color: #101850; display: flex; flex-wrap: wrap; justify-content: left;}
+header {min-width: 850px; position: fixed; z-index: 99; top: 0; left: 0; width: 100%; padding: 0 20px; height: 80px; align-items: center; background-color: #101850; display: flex; flex-wrap: wrap; justify-content: left;}
 header #searchMoive{margin-left:20px; width:350px; height: 40px; border-radius: 40px; box-sizing: border-box; padding: 0px 10px; border:2px solid #f5086a; background-color: rgba(0,0,0,0.2); color:#fff;}
 header .home{cursor: pointer;}
 header .home img{width: 33px; position: relative; top: 4px;}
