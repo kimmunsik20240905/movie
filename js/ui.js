@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </h1>
                         <p><b>감독</b> : ${director ? director.name : 'No Information'}</p>
                         <p><b>개봉일</b> : ${movieDetails.release_date ? movieDetails.release_date : 'No Information'}</p>
-                        <p><b>줄거리</b> : ${movieDetails.overview ? movieDetails.overview : 'No Information'}</p>
+                        <p class="txtBox"><b>줄거리</b> : ${movieDetails.overview ? movieDetails.overview : 'No Information'}</p>
                     </div>
                 </div>
             `;
