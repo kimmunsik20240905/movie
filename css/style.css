@@ -58,7 +58,7 @@
     .popup_window img{border-radius: 10px; border:2px solid #ebebeb; height: 380px; float:left;}
     .popup_window .detailTxtWrap{padding-left:300px;}
     .popup_window p{font-size: 18px; margin-top:5px;}
-    .popup_window p .txtBox{max-height: 248px; overflow: auto;}
+    .popup_window p.txtBox{max-height: 248px; overflow: auto;}
     .popup_window .closeBtn { position: absolute; right: 10px; top: 10px; font-size: 20px; line-height: 15px; cursor: pointer;}
 
     /* 공통 */
