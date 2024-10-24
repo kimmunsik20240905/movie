@@ -164,6 +164,7 @@ inputField.addEventListener('input', async (event) => {
 //북마크 리스트 가져오기
 const bookmark = document.querySelector('.bookmark');
 bookmark.addEventListener('click', async() =>{
+    document.getElementById('searchMoive').value = '';
     const storedMovies = JSON.parse(localStorage.getItem('bookmarkMovies'));
     let moviesArr = [];
     for (const movieId of storedMovies) {
